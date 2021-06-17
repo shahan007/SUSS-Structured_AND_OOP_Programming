@@ -1,0 +1,5 @@
+chips	=	90
+chips	=	130
+chips	=	180.0
+chips	=	0.0
+chips	=	75.0
