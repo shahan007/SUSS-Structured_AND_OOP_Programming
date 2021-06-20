@@ -10,16 +10,18 @@ def set_dpi(level=1):
         pass
 
 
-def convertToFeet(meterHolder, feetHolder):
+def convertToFeet(meterHolder, feetHolder,answer):
     try:
         value = float(meterHolder.get().strip())
-        feet  = round(328084 * value,3)
+        feet  = round(328084 * value,2)
+        color = 'green'
         
     except:
         feet = 'Invalid Input'
+        color= 'red' 
     finally:        
-        feetHolder.set(feet)
-        # or     convertToFeet(meterHolder,answer) -->  answer.config(text=feet)
+        feetHolder.set(feet)        
+        answer.configure(foreground = color)
 
 def main():
     
@@ -45,12 +47,12 @@ def main():
     answer     = ttk.Label(win,textvariable=feetHolder)    
     #btn
     calculateBtn = ttk.Button(win, text='Calculate',padding=2,
-                              command=lambda: convertToFeet(meterHolder,feetHolder))    
+                              command=lambda: convertToFeet(meterHolder,feetHolder,answer))    
     
     #---binding events---
     #enter key event binding
     meterInput.bind('<Return>', lambda event: convertToFeet(
-        meterHolder, feetHolder))
+        meterHolder, feetHolder, answer))
     
     #---Placing----    
     title.grid(row=0,column= 0,columnspan=2) #columnspan allows us to occup the columns in the grid
