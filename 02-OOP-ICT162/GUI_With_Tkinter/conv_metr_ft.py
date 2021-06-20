@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+import tkinter.font as tkfont
 
 def set_dpi(level=1):
 
@@ -32,19 +33,25 @@ def main():
     win.resizable(False,False)
     win.title('Convert Meter to Feet!')
     win.columnconfigure((0,1),weight=1)    
+    #--> Default font
+    defaultFont = tkfont.nametofont('TkDefaultFont')
+    defaultFont.configure(family="Arial", size=10, weight=tkfont.NORMAL)
     
     #---Creation---
-    title = ttk.Label(win,text='Convert Meter to Feet!')
+    title = ttk.Label(win,text='Convert Meter to Feet!',
+                      font=('Corbel', 12, 'italic bold'))
     #meter
     meterLabel = ttk.Label(win,text='Meter: ',padding=5,width=5,
                            background='blue',foreground='white')
     meterHolder= tk.StringVar(win,value=0)
-    meterInput = ttk.Entry(win, width=6, textvariable=meterHolder)
+    meterInput = ttk.Entry(win, width=6, textvariable=meterHolder,
+                           font=("Arial", 10))
     #feet
     feetLabel = ttk.Label(win, text='Feet: ', padding=5, width=5,
                           background='green', foreground='white')
     feetHolder = tk.StringVar(win,value=0)    
-    answer     = ttk.Label(win,textvariable=feetHolder)    
+    answer     = ttk.Label(win,textvariable=feetHolder,
+                           font=("Arial", 10))
     #btn
     calculateBtn = ttk.Button(win, text='Calculate',padding=2,
                               command=lambda: convertToFeet(meterHolder,feetHolder,answer))    
