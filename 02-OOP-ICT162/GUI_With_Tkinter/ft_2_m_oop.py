@@ -30,31 +30,20 @@ class Window(tk.Tk):
         #from
         self.__fLabel = ttk.Label(self, text=f'{f}: ', padding=5, width=5,
                                   background='blue', foreground='white')
-        self.__fHolder = tk.StringVar(self, value=0)
+        self.__fHolder = tk.StringVar(self, value=0.0)
         self.__fInput = ttk.Entry(self, width=6, textvariable=self.__fHolder,
                                   font=("Arial", 16))
         #to
         self.__tLabel = ttk.Label(self, text=f'{t}: ', padding=5, width=5,
                                   background='green', foreground='white')
-        self.__tHolder = tk.StringVar(self, value=0)
+        self.__tHolder = tk.StringVar(self, value=0.0)
         self.__answer = ttk.Label(self, textvariable=self.__tHolder,
-                                  font=("Arial", 16))
+                                  font=("Arial", 16),foreground='green')
         #btns
         self.__calculateBtn = ttk.Button(self, text='Calculate', padding=2,
                                          command=lambda: self.convert())
         self.__switchBtn = ttk.Button(self, text='Switch',
                                       padding=2, command=lambda: self.overWrite(t, f))
-
-    def overWrite(self, f, t):
-        self.__f = f
-        self.__t = t
-        self.title(f'Convert {self.__f} to {self.__t}!')
-        self.__title.config(text=f'Convert {f} to {t}!')
-        self.__fLabel.config(text=f'{f}: ')
-        self.__tLabel.config(text=f'{t}: ')
-        self.__fHolder.set(value=0)
-        self.__tHolder.set(value=0)
-        self.__switchBtn.config(command=lambda: self.overWrite(t, f))
 
     def place_widgets(self):
         self.__title.grid(row=0, column=0, columnspan=2)
@@ -65,20 +54,34 @@ class Window(tk.Tk):
         self.__answer.grid(row=2, column=1, sticky='EW')
         self.__calculateBtn.grid(row=3, column=0, columnspan=2)
         self.__switchBtn.grid(row=4, column=0, columnspan=2)
-        
-        for i, child in enumerate(self.winfo_children()):            
+
+        for i, child in enumerate(self.winfo_children()):
             child.grid_configure(pady=10)
-            if i == 0 :
+            if i == 0:
                 continue
-            elif i >=5:
+            elif i >= 5:
                 break
             elif i % 2 != 0:
                 child.grid_configure(padx=(25, 0))  # helps to configure
             else:
                 child.grid_configure(padx=(0, 25))  # helps to configure
 
-    def bind_events(self):
-        self.__fInput.bind('<Return>', lambda event: self.convert())
+    def overWrite(self, f, t):
+        
+        """
+        Called when switch button is selected. It updates the Meter and Feet
+        """
+        
+        self.__f = f
+        self.__t = t
+        self.title(f'Convert {self.__f} to {self.__t}!')
+        self.__title.config(text=f'Convert {f} to {t}!')
+        self.__fLabel.config(text=f'{f}: ')
+        self.__tLabel.config(text=f'{t}: ')        
+        self.__fHolder.set(value=0.0)
+        self.__tHolder.set(value=0.0)      
+        self.__answer.config(foreground='green')
+        self.__switchBtn.config(command=lambda: self.overWrite(t, f))
 
     def convert(self):
         try:
@@ -95,6 +98,9 @@ class Window(tk.Tk):
         finally:
             self.__tHolder.set(answer)
             self.__answer.configure(foreground=color)
+
+    def bind_events(self):
+        self.__fInput.bind('<Return>', lambda event: self.convert())
 
     def set_dpi_awareness(self, level=1):
         try:
