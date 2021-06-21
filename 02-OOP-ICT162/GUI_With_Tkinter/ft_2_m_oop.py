@@ -27,19 +27,19 @@ class Window(tk.Tk):
         t = self.__t
         self.__title = ttk.Label(self, text=f'Convert {f} to {t}!',
                                  font=('Corbel', 18, 'italic bold'))
-        #meter
+        #from
         self.__fLabel = ttk.Label(self, text=f'{f}: ', padding=5, width=5,
                                   background='blue', foreground='white')
         self.__fHolder = tk.StringVar(self, value=0)
         self.__fInput = ttk.Entry(self, width=6, textvariable=self.__fHolder,
                                   font=("Arial", 16))
-        #feet
+        #to
         self.__tLabel = ttk.Label(self, text=f'{t}: ', padding=5, width=5,
                                   background='green', foreground='white')
         self.__tHolder = tk.StringVar(self, value=0)
         self.__answer = ttk.Label(self, textvariable=self.__tHolder,
                                   font=("Arial", 16))
-        #btn
+        #btns
         self.__calculateBtn = ttk.Button(self, text='Calculate', padding=2,
                                          command=lambda: self.convert())
         self.__switchBtn = ttk.Button(self, text='Switch',
