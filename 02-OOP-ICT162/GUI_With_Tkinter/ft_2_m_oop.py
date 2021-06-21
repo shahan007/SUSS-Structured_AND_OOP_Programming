@@ -48,6 +48,7 @@ class Window(tk.Tk):
     def overWrite(self, f, t):
         self.__f = f
         self.__t = t
+        self.title(f'Convert {self.__f} to {self.__t}!')
         self.__title.config(text=f'Convert {f} to {t}!')
         self.__fLabel.config(text=f'{f}: ')
         self.__tLabel.config(text=f'{t}: ')
