@@ -23,18 +23,16 @@ class Window(tk.Tk):
         self.place_widgets()
 
     def create_widgets(self):
-        f = self.__f
-        t = self.__t
-        self.__title = ttk.Label(self, text=f'Convert {f} to {t}!',
+        self.__title = ttk.Label(self, text=f'Convert {self.__f} to {self.__t}!',
                                  font=('Corbel', 18, 'italic bold'))
         #from
-        self.__fLabel = ttk.Label(self, text=f'{f}: ', padding=5, width=5,
+        self.__fLabel = ttk.Label(self, text=f'{self.__f}: ', padding=5, width=5,
                                   background='blue', foreground='white')
         self.__fHolder = tk.StringVar(self, value=0.0)
         self.__fInput = ttk.Entry(self, width=6, textvariable=self.__fHolder,
                                   font=("Arial", 16))
         #to
-        self.__tLabel = ttk.Label(self, text=f'{t}: ', padding=5, width=5,
+        self.__tLabel = ttk.Label(self, text=f'{self.__t}: ', padding=5, width=5,
                                   background='green', foreground='white')
         self.__tHolder = tk.StringVar(self, value=0.0)
         self.__answer = ttk.Label(self, textvariable=self.__tHolder,
@@ -43,7 +41,7 @@ class Window(tk.Tk):
         self.__calculateBtn = ttk.Button(self, text='Calculate', padding=2,
                                          command=lambda: self.convert())
         self.__switchBtn = ttk.Button(self, text='Switch',
-                                      padding=2, command=lambda: self.overWrite(t, f))
+                                      padding=2, command=lambda: self.overWrite(self.__t, self.__f))
 
     def place_widgets(self):
         self.__title.grid(row=0, column=0, columnspan=2)
@@ -80,8 +78,7 @@ class Window(tk.Tk):
         self.__tLabel.config(text=f'{t}: ')        
         self.__fHolder.set(value=0.0)
         self.__tHolder.set(value=0.0)      
-        self.__answer.config(foreground='green')
-        self.__switchBtn.config(command=lambda: self.overWrite(t, f))
+        self.__answer.config(foreground='green')        
 
     def convert(self):
         try:
