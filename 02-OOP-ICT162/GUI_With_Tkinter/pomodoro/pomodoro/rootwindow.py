@@ -9,7 +9,7 @@ class RootWindow(tk.Tk):
         super().__init__()
         self.title('Pomodoro')
         self.geometry('250x250')
-        self.style = ttk.Style(self)
+        self.style = ttk.Style(self)                
         self.style.theme_use('clam')
         self.style.configure('me.TFrame', bordercolor='red',
                              borderwidth=20, relief='ridge')

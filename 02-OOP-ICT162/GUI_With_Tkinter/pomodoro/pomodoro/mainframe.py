@@ -12,8 +12,8 @@ class MainFrame(ttk.Frame):
         
         self.__pomodoro = [0, 1, 0, 2]
         self.__pomodoroMapping = {0:['25:00','Pomodoro'],
-                                  1:['05:00','Long Break'],
-                                  2:['10:00','Short Break']}
+                                  1: ['03:30', 'Short Break'],
+                                  2:['10:30','Long Break']}
         self.__index = -1
         self.__currentStatus = None
         self.create_widgets()
@@ -34,6 +34,10 @@ class MainFrame(ttk.Frame):
     @property
     def pomodoroMapping(self):
         return self.__pomodoroMapping
+    
+    @property
+    def buttonFrame(self):
+        return self.__buttonFrame
 
     def create_widgets(self):
         self.__headerFrame = HeaderFrame(self)  # add padding for frames
@@ -80,6 +84,8 @@ class HeaderFrame(ttk.Frame):
 
     def update_settings(self):
         self.__container.root.title('Settings')
+        self.__container.root.geometry('400x300')
+        self.__container.root.resizable(False,False)
         self.__container.root.switch_frames(self.__container.root.settingFrame)
 
 
@@ -127,6 +133,7 @@ class ButtonFrame(ttk.Frame):
         self.after_cancel(self.__id)
 
     def reset_timer(self):
-        self.pause_timer()
+        if self.__id:
+            self.pause_timer()
         self.__container.reset_index()
         self.__container.rotate_status()
